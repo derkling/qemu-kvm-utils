@@ -27,6 +27,7 @@ run: build
 	-e "qemu-system-x86_64 $(QEMU_CONF)"
 
 .PHONY: build
-build: init initramfs_list
+build: initrd.cpio.gz
+initrd.cpio.gz: Makefile init initramfs_list
 	@echo "Update initrd image..."
 	./gen_initramfs_list.sh -o initrd.cpio.gz  initramfs_list
