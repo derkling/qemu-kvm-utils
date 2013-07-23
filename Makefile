@@ -4,7 +4,11 @@ DIR=$(shell pwd)
 
 KERNEL=$(DIR)/bzImage
 INITRD=$(DIR)/initrd.cpio.gz
-QEMU_CONF=-kernel $(KERNEL) -initrd $(INITRD) -append \"console=ttyS0\" -nographic
+QEMU_CONF=-kernel $(KERNEL) \
+	  -initrd $(INITRD) \
+	  -serial tcp::2345,server \
+	  -append \"console=ttyS0 earlyprintk=ttyS0,115200 kgdboc=ttyS0,115200 kgdbwait\" \
+	  -nographic
 
 all: build
 
